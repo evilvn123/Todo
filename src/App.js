@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import ItemList from "./components/ItemList.js";
 
@@ -25,6 +25,7 @@ function App() {
       itemName: "New task",
     },
   ]);
+  const [mode, setMode] = useState("All");
 
   //1, Tạo ra 1 state là inputValue
   const [inputValue, setInputValue] = useState("");
@@ -52,11 +53,52 @@ function App() {
       return newItems;
     });
   };
+
+  const handleChangeMode = (newMode) => {
+    setMode(newMode);
+  };
+
+  //Tạo ra state viewList để truyền xuống ItemList
+  const [viewList, setViewList] = useState(items);
+
+  useEffect(() => {
+    //Thay đổi viewList tương ứng với chế độ xem và danh sách hiện tại
+    // Dựa vào chế độ xem để dùng hàm filter
+    let result = [];
+    if (mode === "Active") {
+      result = items.filter((item) => {
+        return item.isChecked === false;
+      });
+    }
+    //else if
+    setViewList(result);
+  }, [mode, items]);
+
   return (
     <div className="App">
+      <div>
+        <button
+          className={mode === "All" ? "active" : ""}
+          onClick={() => handleChangeMode("All")}
+        >
+          All
+        </button>
+        <button
+          className={mode === "Active" ? "active" : ""}
+          onClick={() => handleChangeMode("Active")}
+        >
+          Active
+        </button>
+        <button
+          className={mode === "Completed" ? "active" : ""}
+          onClick={() => handleChangeMode("Completed")}
+        >
+          Completed
+        </button>
+      </div>
       <input type="text" onChange={(e) => handleChange(e)} />
       <button onClick={handleAddItem}>Add item</button>
-      <ItemList items={items} setItems={setItems} />
+      <ItemList items={viewList} setItems={setItems} />
     </div>
   );
 }

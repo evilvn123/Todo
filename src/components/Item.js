@@ -5,12 +5,10 @@ const Item = ({ id, isChecked, itemName, setItems }) => {
   const [check, setCheck] = useState(isChecked);
 
   const handleCheck = () => {
-    // setCheck((prev) => {
-    //   const result = !prev;
-    //   return result;
-    // });
     const result = !check;
     setCheck(result);
+    // Thay đổi lại mảng gốc items với giá trị mới của item vừa bị tick
+
   };
 
   const handleDelete = () => {
@@ -25,7 +23,8 @@ const Item = ({ id, isChecked, itemName, setItems }) => {
   return (
     <div className="item">
       <input onChange={handleCheck} type="checkbox" checked={check} />
-      <span>{itemName}</span>
+      {/* Thay đổi CSS có thêm gạch ngang giữa dòng khi check = true */}
+      <span>{itemName}</span> 
       <button onClick={handleDelete}>Delete</button>
     </div>
   );
