@@ -33,28 +33,30 @@ function App() {
     setInputValue(event.target.value);
   };
   const handleAddItem = () => {
+    if (inputValue === "") return;
     //3, Thêm 1 phần tử item mới vào state items
     // với id = id phần tử cuối + 1
     // isChecked = false
     // itemName = inputValue
     const newId = items[items.length - 1].id + 1;
+
     const newItem = {
       id: newId,
       itemName: inputValue,
       isChecked: false,
     };
+
     setItems((prev) => {
-      // const newItems = [...prev];
-      const newItems = prev.map(element => element);
+      const newItems = prev.map((element) => element);
       newItems.push(newItem);
       return newItems;
     });
   };
   return (
     <div className="App">
-      <input type={"text"} onChange={(e) => handleChange(e)} />
+      <input type="text" onChange={(e) => handleChange(e)} />
       <button onClick={handleAddItem}>Add item</button>
-      <ItemList items={items} />
+      <ItemList items={items} setItems={setItems} />
     </div>
   );
 }

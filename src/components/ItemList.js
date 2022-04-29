@@ -1,15 +1,16 @@
 import "../styles/Home.css";
 import Item from "./Item";
 
-const ItemList = ({items}) => {
-  
+const ItemList = ({ items, setItems }) => {
   return (
     <div>
       {items.map((item) => (
         <Item
           key={item.id}
+          id={item.id}
           isChecked={item.isChecked}
           itemName={item.itemName}
+          setItems={setItems}
         />
       ))}
     </div>
@@ -17,7 +18,3 @@ const ItemList = ({items}) => {
 };
 
 export default ItemList;
-
-// Tạo ra component vs title ở trên, content ở dưới, style phần
-// title có font đậm và cỡ chữ lớn hơn
-// Sử dụng phương thức .map, props để làm
