@@ -55,7 +55,6 @@ function App() {
       <input type={"text"} onChange={(e) => handleChange(e)} />
       <button onClick={handleAddItem}>Add item</button>
       <ItemList items={items} />
-      {/* <Counter /> */}
     </div>
   );
 }
