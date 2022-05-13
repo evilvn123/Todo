@@ -27,10 +27,10 @@ function App() {
   ]);
   const [mode, setMode] = useState("All");
 
-  //1, Tạo ra 1 state là inputValue
   const [inputValue, setInputValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
   const handleChange = (event) => {
-    //2, Thay đổi giá trị của inputValue bằng event.target.value
     setInputValue(event.target.value);
   };
   const handleAddItem = () => {
@@ -54,6 +54,10 @@ function App() {
     });
   };
 
+  const handleChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  }
+
   const handleChangeMode = (newMode) => {
     setMode(newMode);
   };
@@ -62,8 +66,6 @@ function App() {
   const [viewList, setViewList] = useState(items);
 
   useEffect(() => {
-    //Thay đổi viewList tương ứng với chế độ xem và danh sách hiện tại
-    // Dựa vào chế độ xem để dùng hàm filter
     let result = [];
     if (mode === "All") {
       result = items.map((item) => item);
@@ -78,9 +80,8 @@ function App() {
         return item.isChecked === true;
       });
     }
-    console.log(items);
     setViewList(result);
-  }, [mode, items]);
+  }, [mode, items, searchValue]);
 
   return (
     <div className="App">
@@ -104,6 +105,11 @@ function App() {
           Completed
         </button>
       </div>
+      {/* Add a search box and its button */}
+      {/* //insert 1 input tag and 1 button tag with a function "handleSearch" */}
+
+      <input placeholder="Search" type="text" onChange={(e) => handleChangeSearch(e)} />
+      <hr />
       <input type="text" onChange={(e) => handleChange(e)} />
       <button onClick={handleAddItem}>Add item</button>
       <ItemList items={viewList} setItems={setItems} />
