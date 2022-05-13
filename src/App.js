@@ -56,7 +56,7 @@ function App() {
 
   const handleChangeSearch = (e) => {
     setSearchValue(e.target.value);
-  }
+  };
 
   const handleChangeMode = (newMode) => {
     setMode(newMode);
@@ -67,16 +67,24 @@ function App() {
 
   useEffect(() => {
     let result = [];
+    let tempItems = [];
+    if (searchValue !== "") {
+      tempItems = items.filter(
+        (item) => item.itemName.indexOf(searchValue) >= 0
+      );
+    } else {
+      tempItems = [...items];
+    }
     if (mode === "All") {
-      result = items.map((item) => item);
+      result = tempItems.map((item) => item);
       // result = [...items]
       // spread operator: trải các giá trị của mảng/object ra
     } else if (mode === "Active") {
-      result = items.filter((item) => {
+      result = tempItems.filter((item) => {
         return item.isChecked === false;
       });
     } else if (mode === "Completed") {
-      result = items.filter((item) => {
+      result = tempItems.filter((item) => {
         return item.isChecked === true;
       });
     }
@@ -108,7 +116,11 @@ function App() {
       {/* Add a search box and its button */}
       {/* //insert 1 input tag and 1 button tag with a function "handleSearch" */}
 
-      <input placeholder="Search" type="text" onChange={(e) => handleChangeSearch(e)} />
+      <input
+        placeholder="Search"
+        type="text"
+        onChange={(e) => handleChangeSearch(e)}
+      />
       <hr />
       <input type="text" onChange={(e) => handleChange(e)} />
       <button onClick={handleAddItem}>Add item</button>
