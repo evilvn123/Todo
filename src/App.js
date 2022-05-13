@@ -76,8 +76,7 @@ function App() {
       tempItems = [...items];
     }
     if (mode === "All") {
-      result = tempItems.map((item) => item);
-      // result = [...items]
+      result = [...tempItems];
       // spread operator: trải các giá trị của mảng/object ra
     } else if (mode === "Active") {
       result = tempItems.filter((item) => {
