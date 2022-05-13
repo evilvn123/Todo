@@ -65,12 +65,20 @@ function App() {
     //Thay đổi viewList tương ứng với chế độ xem và danh sách hiện tại
     // Dựa vào chế độ xem để dùng hàm filter
     let result = [];
-    if (mode === "Active") {
+    if (mode === "All") {
+      result = items.map((item) => item);
+      // result = [...items]
+      // spread operator: trải các giá trị của mảng/object ra
+    } else if (mode === "Active") {
       result = items.filter((item) => {
         return item.isChecked === false;
       });
+    } else if (mode === "Completed") {
+      result = items.filter((item) => {
+        return item.isChecked === true;
+      });
     }
-    //else if
+    console.log(items);
     setViewList(result);
   }, [mode, items]);
 

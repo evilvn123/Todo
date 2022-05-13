@@ -8,7 +8,15 @@ const Item = ({ id, isChecked, itemName, setItems }) => {
     const result = !check;
     setCheck(result);
     // Thay đổi lại mảng gốc items với giá trị mới của item vừa bị tick
-
+    setItems((prev) => {
+      const newItems = prev.map((item) => {
+        if (item.id === id) {
+          item.isChecked = result;
+        }
+        return item;
+      });
+      return newItems;
+    });
   };
 
   const handleDelete = () => {
@@ -24,7 +32,7 @@ const Item = ({ id, isChecked, itemName, setItems }) => {
     <div className="item">
       <input onChange={handleCheck} type="checkbox" checked={check} />
       {/* Thay đổi CSS có thêm gạch ngang giữa dòng khi check = true */}
-      <span>{itemName}</span> 
+      <span>{itemName}</span>
       <button onClick={handleDelete}>Delete</button>
     </div>
   );
